@@ -1,0 +1,26 @@
+./Login/index.php   --> login.phpにリダイレクト
+       /login.php　　　--> userid,passwordを入力してsubmit
+       /logout.php  -->SESSIONを破棄しlogin.phpに戻る
+       /students.php-->login時にUserTableのTypeが0（生徒）ならここにとぶ
+       /teacher.php -->login時にUserTableのTypeが1（教師）ならここにとぶ
+
+./Sql/index.php 　　　　-->UserTableのTypeが1の場合のみ閲覧可能。
+		　　　　-->来年度の１ヶ月前（３月）よりDBの初期化する。
+
+./SchoolAttend/index.php -->登下校ようのlogin
+              /Attend.php-->index.phpよりログインしたらここに飛ぶ。
+                            登校ボタンを押すとDBに登録される
+　　　　　　　　　　　　　　　下校ボタンを押すとDBに登録される
+//関数
+./Function/LoginFuntion/LoginCheak.php -->teacherCheak() 学生を弾く
+                                       -->studentsCheak()　教師を弾く
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　-->Jamp() すでにログインしていたらログインを省く
+
+	               /Logindb.php -->login() ログインする
+                                    -->logout() ログアウトする
+          /SQL/sql.php  -->DeleteTable() DBの初期化
+          /SchoolAttendFunction/SchoolAttend.php --> Attendance_Cheack() 投稿ボタンと下校ボタンどちらをだすか
+						　--> Attendance_School() 登校処理
+						 --> Leave_School() 下校処理
+                               /SchoolAttenddb.php
+
