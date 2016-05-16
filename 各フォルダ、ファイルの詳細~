@@ -22,5 +22,6 @@
           /SchoolAttendFunction/SchoolAttend.php --> Attendance_Cheack() 投稿ボタンと下校ボタンどちらをだすか
 						　--> Attendance_School() 登校処理
 						 --> Leave_School() 下校処理
-                               /SchoolAttenddb.php
+                               /SchoolAttenddb.php　-->logout() SchoolAttendようのログアウト
+                                                   -->login()  SchoolAttendようのログイン
 

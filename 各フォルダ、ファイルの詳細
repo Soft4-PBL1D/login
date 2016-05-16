@@ -24,4 +24,5 @@
 						 --> Leave_School() 下校処理
                                /SchoolAttenddb.php　-->logout() SchoolAttendようのログアウト
                                                    -->login()  SchoolAttendようのログイン
-
+./shell/yesterday.sh
+	
