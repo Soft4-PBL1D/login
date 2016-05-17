@@ -81,6 +81,6 @@ sudo git pull "https://github.com/Soft4-PBL1D/login.git"
 #sudo git clone "https://github.com/Soft4-PBL1D/login.git"
 sudo chmod a+x ${dir}/shell/yesterday.sh
 #sudo crontab -l > ${dir}/crontab
-sudo echo "59 23 * * ${dir}/shell/yesterday.sh" > ${dir}/crontab
+echo "59 23 * * ${dir}/shell/yesterday.sh" > ${dir}/crontab
 sudo sh -c "cat ${dir}/crontab >> /etc/crontab"
 mysql -u root -proot < ${dir}/Sql/Users.text
