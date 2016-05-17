@@ -12,6 +12,9 @@ else
 	echo "debconfのインストールは完了しています"
 	sleep 1
 fi
+#date
+sudo apt-get install -y ntpdate
+sudo ntpdate -u ntp.nict.jp
 #apache2 install
 apache=/usr/sbin/apache2
 if [ ! -f ${apache} ];then
@@ -59,7 +62,7 @@ if [ ! -f ${php} ];then
 	echo "php5をインストールします"
 	#sudo sh -c " echo mysql-server-5.5 mysql-server/root_password password root" | debconf-set-selections
 	#echo "mysql-server-5.5 mysql-server/root_password_again password root" | debconf-set-selections
-	sudo apt-get install -y php5
+	sudo apt-get install -y php5 php5-mysql
 	echo "php5のインストール完了"
 	sleep 1
 else
@@ -81,8 +84,15 @@ else
 	echo "mysql-serverのインストールは完了しています"
 	sleep 1
 fi
-
+echo "apache2 resetart"
+sudo service apache2 restart
+#crontab
 #sudo crontab -l > ${dir}/crontab
-echo "59 23 * * ${dir}/shell/yesterday.sh" > ${dir}/crontab
-sudo sh -c "cat ${dir}/crontab >> /etc/crontab"
-mysql -u root -proot < ${dir}/Sql/Users.text
+echo "crontabの設定をしています"
+sleep 1
+echo "59 23 * * * ${dir}/shell/yesterday.sh" > ${dir}/crontab
+sudo sh -c "echo 59 23 * * * ${dir}/shell/yesterday.sh > /var/spool/cron/crontabs/root"
+#sudo sh -c "cat ${dir}/crontab >> /etc/crontab"
+sudo crontab -l
+mysql -u root -proot < ${dir}/Sql/Users.sql
+
