@@ -70,23 +70,17 @@ fi
 #mysql-serverのインストール
 mysql=/usr/bin/mysql
 if [ ! -f ${mysql} ];then
-	sudo debconf-set-selections < ${dir}/shell/mysql-server.txt
-	sudo apt-get install -y mysql-server
+	#sudo debconf-set-selections < ${dir}/shell/mysql-server.txt
+	#sudo apt-get install -y mysql-server
+	sudo sh -c "echo mysql-server-5.5 mysql-server/root_password password root | debconf-set-selections"
+	sudo sh -c "echo mysql-server-5.5 mysql-server/root_password_again password root | debconf-set-selections"
+	sudo apt-get -y install mysql-server-5.5
 	echo "mysqlのインストール完了"
 	sleep 1
 else
 	echo "mysql-serverのインストールは完了しています"
 	sleep 1
 fi
-
-
-
-
-
-
-
-
-
 
 #sudo crontab -l > ${dir}/crontab
 echo "59 23 * * ${dir}/shell/yesterday.sh" > ${dir}/crontab

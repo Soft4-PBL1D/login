@@ -3,7 +3,7 @@
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-drop database if not exists  Users;
+DROP DATABASE IF EXISTS Users;
 create database Users;
 use database;
 create table UserTable(UserId varchar(10) primary key not null
@@ -11,7 +11,7 @@ create table UserTable(UserId varchar(10) primary key not null
 			Type int default null,
 			Password varchar(100) default null);
 create table SchoolAttendTable(id int primary key auto_increment,
-				UserId varchar(10) not null,			
+				UserId varchar(10) not null,
 				Time int default 0,
 				Type int default 0,
 				Check int default 0);
