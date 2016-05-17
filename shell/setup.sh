@@ -40,8 +40,8 @@ fi
 mysql=/usr/bin/mysql
 if [ ! -f ${mysql} ];then
 sudo debconf-set-selections <<EOF
-mysql-server-5.5 mysql-server/root_password password "root"
-mysql-server-5.5 mysql-server/root_password_again password "root"
+	mysql-server-5.5 mysql-server/root_password password "root"
+	mysql-server-5.5 mysql-server/root_password_again password "root"
 EOF
 sudo apt-get install -y mysql-server
 #mysql-server-5.5 mysql-server/start_on_boot boolean true
@@ -76,10 +76,11 @@ fi
 echo "git pullを開始します"
 cd ${dir}
 sudo git init
+sudo git checkout master
 sudo git pull "https://github.com/Soft4-PBL1D/login.git"
 #sudo git clone "https://github.com/Soft4-PBL1D/login.git"
 sudo chmod a+x ${dir}/shell/yesterday.sh
 #sudo crontab -l > ${dir}/crontab
-sudo echo "59 23 * * ${dir}/shell/yesterday.sh" > ${dir}/crontab
+sudo sh -c "59 23 * * ${dir}/shell/yesterday.sh > ${dir}/crontab"
 sudo sh -c "cat ${dir}/crontab >> /etc/crontab"
-mysql -u root -proot < ${dir}/Sql/Users.sql
+mysql -u root -proot < ${dir}/Sql/Users.text
