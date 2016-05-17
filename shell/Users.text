@@ -5,7 +5,7 @@
 
 DROP DATABASE IF EXISTS Users;
 create database Users;
-use database;
+use Users;
 create table UserTable(UserId varchar(10) primary key not null
 			Name varchar(50) not null,
 			Type int default null,
