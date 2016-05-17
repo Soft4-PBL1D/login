@@ -3,7 +3,7 @@
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-drop database if exists  Users;
+drop database if not exists  Users;
 create database Users;
 use database;
 create table UserTable(UserId varchar(10) primary key not null
