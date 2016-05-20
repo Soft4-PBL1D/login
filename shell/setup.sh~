@@ -90,8 +90,8 @@ sudo service apache2 restart
 #sudo crontab -l > ${dir}/crontab
 echo "crontabの設定をしています"
 sleep 1
-echo "59 23 * * * ${dir}/shell/yesterday.sh" > ${dir}/crontab
-sudo sh -c "echo 59 23 * * * ${dir}/shell/yesterday.sh > /var/spool/cron/crontabs/root"
+#echo "20 05 * * * ${dir}/shell/yesterday.sh" > ${dir}/crontab
+sudo sh -c "echo 20 05 * * * ${dir}/shell/yesterday.sh > /var/spool/cron/crontabs/root"
 #sudo sh -c "cat ${dir}/crontab >> /etc/crontab"
 sudo crontab -l
 mysql -u root -proot < ${dir}/Sql/Users.sql

@@ -24,7 +24,6 @@ function Logout(){
 
 }
 
-
 function Login(){
   error_reporting(E_ALL ^ E_NOTICE);
   session_start();
@@ -52,7 +51,7 @@ function Login(){
           $errorMessage="database error";
       }
   }
-
+  //passwordhenshuu
   // loginOK
   if ($_POST["userid"] == $user[0] && $_POST["password"] == $user[1]) {
     // sessionID_create
@@ -60,6 +59,10 @@ function Login(){
     $_SESSION["USERID"] = $user[0];
     $_SESSION["TYPE"]=$user[2];
     $_SESSION["NAME"]=$user[3];
+    $_SESSION["PASSWORD"]=$user[1];
+    if($user[0]==$user[1]){
+      header("Location:password.php");
+    }
      if($_SESSION["TYPE"]=="1"){
         header("Location:teacher.php");
       exit;}

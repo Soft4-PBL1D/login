@@ -18,7 +18,7 @@ error_reporting(E_ALL ^ E_NOTICE);
         array(PDO::ATTR_EMULATE_PREPARES=>false));
         $sql="select * from UserTable where UserId=? and Password=?";
         $stmt=$pdo->prepare($sql);
-        $stmt->execute(array($_POST['userid'],$_POST['password']));
+        $stmt->execute(array($_POST['userid'],SHA1($_POST['password'])));
         while($kari=$stmt->fetch(PDO::FETCH_ASSOC)){
           $user[0]=$kari[UserId];
           $user[1]=$kari[Password];
@@ -32,7 +32,7 @@ error_reporting(E_ALL ^ E_NOTICE);
           // $login="login.php";
         }
     // loginOK
-    if ($_POST["userid"] == $user[0] && $_POST["password"] == $user[1]) {
+    if ($_POST["userid"] == $user[0] && SHA1($_POST["password"]) == $user[1]) {
       // sessionID_create
       session_regenerate_id(TRUE);
       $_SESSION["USERID"] = $_POST["userid"];

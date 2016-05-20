@@ -4,8 +4,8 @@ function teacherCheak(){
   session_start();
   // login_check teacherONLY
     if (!isset($_SESSION["USERID"])){
-      header("Location:login.php");
-      exit;
+        header("Location:login.php");
+        exit;
     }else if($_SESSION["TYPE"]!="1"){
       header("Location:students.php");
       exit;
@@ -27,10 +27,13 @@ function Jamp(){
     session_start();
     //login->OK = main jamp
     if($_SESSION["TYPE"]==0){
-      header("Location:students.php");
+      header("Refresh:3,URL:students.php");
+      // header("Location:students.php");
     exit;}
     if($_SESSION["TYPE"]==1){
-        header("Location:teacher.php");
+        // header("Location:teacher.php");
+        header("Refresh:3,URL:teacher.php");
+
     exit;}
 }
 ?>
