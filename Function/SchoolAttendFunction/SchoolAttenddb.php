@@ -34,7 +34,12 @@ error_reporting(E_ALL ^ E_NOTICE);
     // loginOK
     if ($_POST["userid"] == $user[0] && SHA1($_POST["password"]) == $user[1]) {
       // sessionID_create
-      session_regenerate_id(TRUE);
+      // session_regenerate_id(TRUE);
+      if(strstr(SHA1($_POST["userid"]),SHA1($_POST["password"]))):
+        $_SESSION["JAMP"]="1";
+        header("Location:../Log/password.php");
+        exit;
+      endif;
       $_SESSION["USERID"] = $_POST["userid"];
       $_SESSION["NAME"]=$user[3];
       if($_SESSION["USERID"]!="teacher"){

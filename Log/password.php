@@ -1,7 +1,6 @@
 <?php require("../Function/LoginFunction/Logindb.php");
       require("../Function/LoginFunction/LoginCheak.php");
-$comment=password();
-// $redirect=Redirect();?>
+      $comment=password();?>
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
@@ -11,13 +10,11 @@ $comment=password();
     <!-- パスワードを変更したらテキストフィールドを 隠し指定時間後トップ画面に繊維 -->
     <?php
       if(strstr(SHA1($_SESSION["USERID"]),$_SESSION["PASSWORD"])){?>
-      password<input type="password" name="password">
+      password<input type="password" placeholder="パスワードを入力してください" name="password"><br>
+      passwordcheck<input type="password" placeholder="確認用パスワードを入力してください" name="passwordcheck">
       <input type="submit" name="passcheck" values="submit">
-      <?php }
-    // }else if($comment=="パスワードを変更しました\n"||$comment==null){
-      // echo $comment;
-      // Jamp();
-    // }
-    echo $comment;
+      <?php
+    }
+   echo $comment;
 ?>
 </body>

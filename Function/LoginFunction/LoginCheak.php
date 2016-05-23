@@ -23,17 +23,22 @@ function studentsCheak(){
     }
 }
 function Jamp(){
-  error_reporting(E_ALL ^ E_NOTICE);
+    error_reporting(E_ALL ^ E_NOTICE);
     session_start();
     //login->OK = main jamp
     if($_SESSION["TYPE"]==0){
       header("Refresh:3,URL:students.php");
-      // header("Location:students.php");
-    exit;}
+    // header("Location:students.php");
+    exit;
+  }
     if($_SESSION["TYPE"]==1){
         // header("Location:teacher.php");
         header("Refresh:3,URL:teacher.php");
-
-    exit;}
+    exit;
+  // }else{
+    // header("Refresh:3,URL:index.php");
+    // header("Location:index.php");
+  // exit;
+}
 }
 ?>

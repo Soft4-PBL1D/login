@@ -2,21 +2,23 @@
  function Password(){
    error_reporting(E_ALL ^ E_NOTICE);
    session_start();
-   session_regenerate_id(true);
+  //  session_regenerate_id(true);
   $password=$_SESSION["PASSWORD"];
   $userid=$_SESSION["USERID"];
    $pass=$_POST["password"];
   //  echo $password."<br>".$userid;
   //  パスワードを変更済みなら以降変更不可
-   if(!strstr($password,SHA1($userid))){
+   if($password!=SHA1($userid)){
+    //  echo $password."<br>".sha1($userid);
      //no SHA1
      //  if(strstr($password,$pass)){
+    //  Jamp();
      if($_SESSION["TYPE"]==1):
        header("Location:teacher.php");
        exit;
    endif;
       if($_SESSION["TYPE"]==0):
-        // echo $password;
+        // echo "2";
         // echo $userid;
       header("Location:students.php");
       exit;
@@ -26,6 +28,7 @@
   if(isset($_POST["passcheck"])){
     if(($pass!=null)&&!strstr($password,$userid)){
     // if(($pass!=null)&&($userid==$password)){
+    // passcheck
     // $ パスワードは６文字以上１０文字以下
       if(mb_strlen($pass)<6 ||mb_strlen($pass)>10):
         $message.="<br>パスワード６文字以上10文字以下を入力してください<br>";
@@ -39,6 +42,10 @@
         return $message;
         // exit;
         endif;
+      if(!strstr($pass,$_POST["passwordcheck"])):
+        $message.="<br>パスワードが一致していません";
+        return $message;
+      endif;
   // type check
     if($userid=="teacher"){
       $type=1;
@@ -73,13 +80,15 @@
       exit('database session error。'.$e->getMessage());
       $errorMessage="database error";
     }
-      $message="パスワードを変更しました\n";
-      return $message;
+      // return $message;
       if($_SESSION["TYPE"]==1):
+        echo "パスワードを変更しました\n";
       header("Refresh:2;URL=teacher.php");
     endif;
       if($_SESSION["TYPE"]==0):
+        echo "パスワードを変更しました\n";
         header("Refresh:2;URL=students.php");
+
       endif;
     }else
       return $comment="<br>パスワード６文字以上10文字以下を入力してください<br>";;
@@ -117,7 +126,6 @@ function Logout(){
 function Login(){
   error_reporting(E_ALL ^ E_NOTICE);
   session_start();
-  session_regenerate_id(true);
   // errMS
   $errorMessage = "";
   // escappecheck
@@ -125,7 +133,14 @@ function Login(){
   // login_submit
   //データーベースにない場合のエラーメッセージ
       // db session
-
+      if($_SESSION["TYPE"]=="1"){
+        header("Location:teacher.php");
+        exit;
+      }
+      if($_SESSION["TYPE"]=="0"){
+        header("Location:students.php");
+        exit;
+      }
     if(isset($_POST["login"])&&isset($_POST["userid"])&&isset($_POST["password"])&&$_POST["password"]!=null){
       try{
         $pdo= new PDO('mysql:host=localhost;dbname=Users;charset=utf8','root','root',
@@ -149,6 +164,7 @@ function Login(){
         $user[1]=$kari[Password];
         $user[2]=$kari[Type];
         $user[3]=$kari[Name];
+        session_regenerate_id(true);
         $_SESSION["USERID"] = $user[0];
         $_SESSION["TYPE"]=$user[2];
         $_SESSION["NAME"]=$user[3];
