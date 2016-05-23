@@ -1,5 +1,5 @@
 <?php
-function DeleteTable($i){
+function DeleteTable(){
   error_reporting(E_ALL ^ E_NOTICE);
     session_start();
     $errorMessage = "";

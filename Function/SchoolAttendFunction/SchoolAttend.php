@@ -10,6 +10,8 @@
       $ip=$_SERVER["SERVER_NAME"];
     //  return header("location: http://{$ip}/login/login.php");
     }
+    if(!$_SESSION["USERID"])
+      header("Location:index.php");
     $Type=""; //attend flag 1 or 0
     $message=""; //message
       try{

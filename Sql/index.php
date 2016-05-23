@@ -1,8 +1,8 @@
 <?php
-require("delete.php");
+require("/var/www/html/Dfun/Function/SQL/Sql.php");
 $errorMessage=DeleteTable(1);
 echo "<meta charset=utf8>";
-echo b();
+// echo b();
  ?>
  <doctype! html>
  <head>
