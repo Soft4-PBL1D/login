@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- ホスト: localhost
--- 生成日時: 2016 年 5 月 16 日 14:35
+-- 生成日時: 2016 年 5 月 23 日 13:04
 -- サーバのバージョン: 5.5.49-0ubuntu0.14.04.1
 -- PHP のバージョン: 5.5.9-1ubuntu4.16
 
@@ -15,9 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-drop database if exists Users;
-create database Users;
-use Users;
+
 --
 -- データベース: `Users`
 --
@@ -29,12 +27,13 @@ use Users;
 --
 
 CREATE TABLE IF NOT EXISTS `ClassAttendTable` (
-  `UserId` varchar(20) NOT NULL,
-  `Date` date DEFAULT NULL,
-  `Time` int(16) DEFAULT NULL,
-  `Type` int(4) DEFAULT NULL,
-  PRIMARY KEY (`UserId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `UserId` varchar(10) NOT NULL COMMENT 'ユーザーID',
+  `Date` date DEFAULT NULL COMMENT '出席日',
+  `Time` int(16) DEFAULT NULL COMMENT '時限目（１〜５）',
+  `Type` int(4) DEFAULT NULL COMMENT '出席：0 遅刻：1 欠席：2 就活：3 病欠：4',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -43,8 +42,8 @@ CREATE TABLE IF NOT EXISTS `ClassAttendTable` (
 --
 
 CREATE TABLE IF NOT EXISTS `FaceTable` (
-  `UserId` varchar(20) NOT NULL,
-  `imagePath` varchar(60) DEFAULT NULL,
+  `UserId` varchar(10) NOT NULL COMMENT 'ユーザーID',
+  `imagePath` varchar(256) DEFAULT NULL COMMENT '顔面パス',
   PRIMARY KEY (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -58,30 +57,17 @@ INSERT INTO `FaceTable` (`UserId`, `imagePath`) VALUES
 -- --------------------------------------------------------
 
 --
--- テーブルの構造 `loginTime`
---
-
-CREATE TABLE IF NOT EXISTS `loginTime` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `UserId` varchar(8) DEFAULT NULL,
-  `loginTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- テーブルの構造 `SchoolAttendTable`
 --
 
 CREATE TABLE IF NOT EXISTS `SchoolAttendTable` (
-  `Id` int(8) NOT NULL AUTO_INCREMENT,
-  `UserId` varchar(8) NOT NULL,
-  `Time` int(16) NOT NULL,
-  `Type` int(2) NOT NULL,
-  `Checking` int(2) NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `UserId` varchar(10) NOT NULL COMMENT 'ユーザーID',
+  `Time` int(16) NOT NULL COMMENT '登下校時間（unixTime）',
+  `Type` int(2) NOT NULL COMMENT '教師＝１、生徒＝０',
+  `Checking` int(2) NOT NULL COMMENT '０＝登校、１＝下校、２＝異常下校',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=365 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=378 ;
 
 --
 -- テーブルのデータのダンプ `SchoolAttendTable`
@@ -130,25 +116,20 @@ INSERT INTO `SchoolAttendTable` (`Id`, `UserId`, `Time`, `Type`, `Checking`) VAL
 (361, '0K01001', 1463360369, 1, 1),
 (362, '0K01001', 1463360391, 1, 2),
 (363, '0K01001', 1463360556, 1, 2),
-(364, '0K01001', 1463360649, 1, 2);
-
--- --------------------------------------------------------
-
---
--- テーブルの構造 `users`
---
-
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ユーザID',
-  `username` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'ユーザ名',
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'メールアドレス',
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'パスワード',
-  `role` int(11) NOT NULL DEFAULT '1',
-  `status` int(11) NOT NULL DEFAULT '1',
-  `created` datetime NOT NULL COMMENT '登録日時',
-  `modified` datetime NOT NULL COMMENT '更新日時',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='ユーザデータ' AUTO_INCREMENT=1 ;
+(364, '0K01001', 1463360649, 1, 2),
+(365, '0K01001', 279784392, 1, 2),
+(366, 'teacher', 1463713374, 1, 2),
+(367, 'teacher', 1463713393, 1, 1),
+(368, '0K01001', 1463713787, 1, 2),
+(369, '0K01001', 1463713798, 1, 1),
+(370, '0K01001', 1463714316, 1, 2),
+(371, '0K01001', 1463714611, 1, 1),
+(372, '0K01001', 1463714807, 1, 2),
+(373, '0K01001', 1463715971, 1, 1),
+(374, '0K01001', 1463968829, 1, 2),
+(375, '0K01001', 1463970765, 1, 1),
+(376, '0K01001', 1463970843, 1, 2),
+(377, '0K01001', 1463972282, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -157,10 +138,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 CREATE TABLE IF NOT EXISTS `UserTable` (
-  `UserId` varchar(16) NOT NULL,
-  `Name` varchar(16) NOT NULL,
-  `Type` int(8) NOT NULL,
-  `Password` varchar(10) NOT NULL,
+  `UserId` varchar(10) NOT NULL COMMENT 'ユーザーID',
+  `Name` varchar(50) CHARACTER SET utf32 NOT NULL COMMENT '名前',
+  `Type` int(11) NOT NULL COMMENT '教師＝１、生徒＝０',
+  `Password` varchar(100) CHARACTER SET utf32 NOT NULL COMMENT 'パスワード',
   PRIMARY KEY (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -169,8 +150,11 @@ CREATE TABLE IF NOT EXISTS `UserTable` (
 --
 
 INSERT INTO `UserTable` (`UserId`, `Name`, `Type`, `Password`) VALUES
-('0K01001', 'aho', 0, '0K01001'),
-('teacher', 'teacher', 1, 'teacher');
+('0K01001', 'aho', 0, '88fdd585121a4ccb3d1540527aee53a77c77abb8'),
+('0K01002', '??T', 0, '88fdd585121a4ccb3d1540527aee53a77c77abb8'),
+('0K01003', '川本T', 1, 'teacher'),
+('0K01004', 'whi', 0, '52581d723bf830dc9128371e7e7f8bd579d78835'),
+('teacher', 'teacher', 1, 'aaf8930c5b4dce6817281a6dd7d13363b8759743');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
