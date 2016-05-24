@@ -54,7 +54,7 @@
           </script>
 
 
-          <a href="##################" id="choice_btn2">
+          <a href="processing.php" id="choice_btn2">
             <p>クリックで認証</p>
           </a>
           <img src="img/logo.png" id="LILIQ2">
