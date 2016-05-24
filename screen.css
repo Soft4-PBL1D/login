@@ -7,7 +7,7 @@ src: url('font/mplus-2p-medium.ttf') format('truetype');
   margin:0;
   padding:0;
   font-family:"mf";
-  overflow:hidden;
+
   font-weight:normal;
 }
 
@@ -28,11 +28,20 @@ body {
   background-color:#6CB352;
 }
 
+#screen_blue {
+  width:100%;
+  height:100%;
+  background-image:url(img/bg_sq.png);
+  background-size:100% 100%;
+  background-color:#29ABE2;
+}
+
 #screen_capcha {
   width:100%;
   height:100%;
   position:relative;
 }
+
 
 #ck {
   width:150px;
@@ -57,11 +66,39 @@ h1#status {
   margin-right:24px;
 }
 
+h1#waiting {
+  display:block;
+  font-size:60px;
+  font-weight:normal;
+  color:#fff;
+  float:left;
+  margin-right:24px;
+}
+
+h1#waiting2 {
+  display:block;
+  font-size:40px;
+  font-weight:normal;
+  color:#fff;
+
+}
+
 #text_box {
   color:#fff;
   width:800px;
   height:100%;
   font-size:20px;
+}
+
+#bigtext_box {
+  color:#fff;
+  width:1100px;
+  height:100%;
+  font-size:20px;
+  text-align:center;
+  margin-right:-350px;
+  overflow: visible;
+  margin-top:-65px;
 }
 
 .marginner {
@@ -112,6 +149,11 @@ h1#status {
   font-size:60px;
 }
 
+.bigclock_txt{
+  color:#fff;
+  font-size:280px;
+}
+
 #select_box {
   width:100%;
   margin-top:30px;
@@ -138,10 +180,31 @@ h1#status {
   font-weight:normal;
 }
 
+#choice_btn2 {
+  width:1100px;
+  height:70px;
+  display:table-cell;
+  vertical-align:middle;
+  text-align:center;
+  background-color:rgba(0,0,0,0.4);
+  font-size:25px;
+  color:#fff;
+  text-decoration:none;
+}
+
+.closer2 {
+  display:block;
+  float:left;
+  font-size:35px;
+  margin-top:94px;
+  font-weight:normal;
+}
+
 #choice_btn p {
   color:#fff;
   font-size:1em;
 }
+
 
 #liliq {
   display:block;
@@ -150,6 +213,13 @@ h1#status {
   left:50px;
   width:160px;
   height:45px;
+}
+
+#LILIQ2 {
+  display:block;
+  width:100px;
+  height:25px;
+  margin:40px auto 0 auto;
 }
 /*
 #face_box {

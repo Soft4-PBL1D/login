@@ -10,17 +10,36 @@
 </head>
 
 <body>
-<img id="liliq" src="img/logo.png" alt="LILIQ">
 
-  <div id="screen_green">
+  <div id="screen_blue">
     <div id="screen_box">
 
 
       <div id="screen_captcha">
 
-        <div id="text_box">
-          <div id="ck">　</div>
-          <h1 id="status">出席</h1>
+        <div id="bigtext_box">
+
+
+          <p id="clock_txt">
+            <SCRIPT type="text/javascript"><!--
+            myWeek=new Array("日","月","火","水","木","金","土");
+            function myFunc(){
+
+                 myDate=new Date();
+                 myMsg = "";
+                 myMsg += myDate.getHours() + ":";
+                 myMsg += myDate.getMinutes() + "";
+                 document.getElementById("myIDdate").innerHTML = myMsg;
+
+            }
+            // --></SCRIPT>
+            <DIV id="myIDdate" class="bigclock_txt">00:00</DIV>
+            <SCRIPT type="text/javascript"><!--
+            setInterval( "myFunc()", 1000 );
+            // --></SCRIPT>
+          </p>
+
+
           <script>
           var ccnt = 5;
           function countdown(){
@@ -28,26 +47,21 @@
             if(ccnt < 0){
               document.getElementById("closeup").innerHTML = "0";
             }else{
-            document.getElementById("closeup").innerHTML = ccnt;
+              document.getElementById("closeup").innerHTML = ccnt;
           }
           }
 
           </script>
-          <span id="closeup" class="closer">
-            5
-          </span>
-          <span class="closer">
-            秒後にクローズ
-          </span>
+
+
+          <a href="##################" id="choice_btn2">
+            <p>クリックで認証</p>
+          </a>
+          <img src="img/logo.png" id="LILIQ2">
+
         </div>
           <br clear="all">
 
-          <p id="name"  class="marginner">0K00018 土肥　裕平</p>
-          <a id="select_box" href="###############やり直しの際の処理################">
-            <div id="choice_btn">
-              <p>　これは私の名前ではありません(Enterでやり直し)</p>
-            </div>
-          </a>
 
       </div>
 
@@ -56,29 +70,6 @@
   </div>
 
 
-  <div id="status_box">
-    <p id="clock_txt">
-      <SCRIPT type="text/javascript"><!--
-      myWeek=new Array("日","月","火","水","木","金","土");
-      function myFunc(){
-           myDate=new Date();
-           myMsg = "";
-           myMsg += ( myDate.getMonth() + 1 ) + "月";
-           myMsg += myDate.getDate() + "日";
-           myMsg += "(" + myWeek[myDate.getDay()] + ")";
-           myMsg += myDate.getHours() + "時";
-           myMsg += myDate.getMinutes() + "分";
-           myMsg += myDate.getSeconds() + "秒";
-           document.getElementById("myIDdate").innerHTML = myMsg;
-      }
-      // --></SCRIPT>
-      <DIV id="myIDdate" class="clock_txt">00月00日(　)00時00分00秒</DIV>
-      <SCRIPT type="text/javascript"><!--
-      setInterval( "myFunc()", 1000 );
-      setInterval( "countdown()", 1000 );
-      // --></SCRIPT>
-    </p>
-  </div>
 
 </body>
 </html>
