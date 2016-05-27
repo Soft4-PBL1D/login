@@ -53,9 +53,6 @@ CREATE TABLE IF NOT EXISTS `FaceTable` (
 -- テーブルのデータのダンプ `FaceTable`
 --
 
-INSERT INTO `FaceTable` (`UserId`, `imagePath`) VALUES
-('teacher', '1');
-
 -- --------------------------------------------------------
 
 --

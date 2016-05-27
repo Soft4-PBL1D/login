@@ -1,14 +1,15 @@
 <?php
 //Login Time(Date)
+session_start();
 $message=null;
 require("../Function/SchoolAttendFunction/SchoolAttend.php");
 require("../Function/SchoolAttendFunction/SchoolAttenddb.php");
 //Login();
-list($Type)=Attendance_Cheack();
+list($Type)=Attendance_Cheack($_SESSION["USERID"]);
 if(isset($_POST["attendance"])){
-$message=Attendance_School();}
+$message=Attendance_School($_SESSION["USERID"]);}
 if(isset($_POST["leave"])){
-$message=Leave_School();}
+$message=Leave_School($_SESSION["USERID"]);}
 ?>
 <html>
 <haed>

@@ -1,16 +1,17 @@
 <?php
 //登校ボタンか下校ボタンを表示させる
-  function Attendance_Cheack(){
+  function Attendance_Cheack($userId){
     error_reporting(E_ALL ^ E_NOTICE);
     session_start();
-    $userId=$_SESSION["USERID"];
+    // $userId=$_SESSION["USERID"];
     $name=$_SESSION["NAME"];
-    if(!$_SESSION["USERID"]){
-      $ip=$_SERVER["REMOTE_ADDR"];
-      $ip=$_SERVER["SERVER_NAME"];
+    // if(!$_SESSION["USERID"]){
+      // $ip=$_SERVER["REMOTE_ADDR"];
+      // $ip=$_SERVER["SERVER_NAME"];
     //  return header("location: http://{$ip}/login/login.php");
-    }
-    if(!$_SESSION["USERID"])
+    // }
+    if(!$userId)
+    // if(!$_SESSION["USERID"])
       header("Location:index.php");
     $Type=""; //attend flag 1 or 0
     $message=""; //message
@@ -36,15 +37,15 @@
       }
 
 //登校処理
-function Attendance_School(){
+function Attendance_School($userId){
   error_reporting(E_ALL ^ E_NOTICE);
   session_start();
-  $name=$_SESSION["NAME"];
-  $userId=$_SESSION["USERID"];
-  if(!$_SESSION["USERID"]){
-    $ip=$_SERVER["REMOTE_ADDR"];
+  // $name=$_SESSION["NAME"];
+  // $userId=$_SESSION["USERID"];
+  // if(!$_SESSION["USERID"]){
+    // $ip=$_SERVER["REMOTE_ADDR"];
   //return header("location: http://{$ip}/login/login.php");
-  }
+  // }
   $Type="1"; //attend flag 1 or 0
   $message=""; //message
     try{
@@ -53,11 +54,14 @@ function Attendance_School(){
       array(PDO::ATTR_EMULATE_PREPARES=>false));
       if(!$pdo){$message="error";}
 //登校済みかcheak
-      $sql="select * from SchoolAttendTable where UserId=? order by Time desc limit 1;";
+$sql="select * from SchoolAttendTable inner join UserTable on SchoolAttendTable.UserId=UserTable.UserId where SchoolAttendTable.UserId=? order by Time desc limit 1";
+
+      // $sql="select * from SchoolAttendTable where UserId=? order by Time desc limit 1;";
       $stmt=$pdo->prepare($sql);
       $stmt->execute(array($userId));
       foreach($stmt as $data){
       $Type=$data["Type"];
+      $name=$data["Name"];
       $time=date("Y-m-d H:i",$data["Time"]);
     }
 //DBに投稿時間を書き込む
@@ -65,6 +69,7 @@ function Attendance_School(){
         $Time=date("Y-m-d H:i:s",time()); //NowTime;
         $sql="insert into SchoolAttendTable(UserId,Time,Type,Checking)values(?,?,?,?)";
         $stmt=$pdo->prepare($sql);
+        // $stmt->execute(array("0K01001",time(),"0","0"));
         $stmt->execute(array($userId,time(),"0","0"));
         $message=$Time."に<br>".$name."さん登校しました<br>";
 //DBに投稿時間を書きこまれいていたら投稿時間を出力
@@ -83,27 +88,29 @@ function Attendance_School(){
 
 //下校処理
 
-function Leave_School(){
+function Leave_School($userId){
   error_reporting(E_ALL ^ E_NOTICE);
   session_start();
-  $name=$_SESSION["NAME"];
-  $userId=$_SESSION["USERID"];
-  if(!$_SESSION["USERID"]){
-    $ip=$_SERVER["REMOTE_ADDR"];
+  // $name=$_SESSION["NAME"];
+  // $userId=$_SESSION["USERID"];
+  // if(!$_SESSION["USERID"]){
+    // $ip=$_SERVER["REMOTE_ADDR"];
   //return header("location: http://{$ip}/login/login.php");
-  }
-  $Type="1"; //attend flag 1 or 0
+  // }
+  $Type="0"; //attend flag 1 or 0
   $message=""; //message
     try{
       $pdo=new PDO("mysql:host=localhost;dbname=Users;charset=utf8","root","root",
       array(PDO::ATTR_EMULATE_PREPARES=>false));
       if(!$pdo){$message="error";}
 //下校済みかcheak
-      $sql="select * from SchoolAttendTable where UserId=? order by Time desc limit 1;";
+      // $sql="select * from SchoolAttendTable where UserId=? order by Time desc limit 1;";
+      $sql="select * from SchoolAttendTable inner join UserTable on SchoolAttendTable.UserId=UserTable.UserId where SchoolAttendTable.UserId=? order by Time desc limit 1";
       $stmt=$pdo->prepare($sql);
       $stmt->execute(array($userId));
       foreach($stmt as $data){
       $Type=$data["Type"];
+      // $name=$data["Name"]
       $time=date("Y-m-d H:i",$data["Time"]);
     }
 //DBに下校時間を書き込む
