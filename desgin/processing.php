@@ -105,9 +105,19 @@
 				processData: false,
 			}).then(function(data) {
 				// if (data < 0.3) {
-			<?php	require("/var/www/html/Dfun/Function/SchoolAttendFunction/SchoolAttend.php");
-				Attendance_School(); ?>
-					window.location.href = '0.php';
+			<?php
+				require("/var/www/html/Dfun/Function/SchoolAttendFunction/SchoolAttend.php");
+				list($Type)=Attendance_Cheack("0K01001"); //test data
+				if($Type=="1" || $Type==null){
+					Attendance_School("0K01001"); //test data
+					echo "window.location.href = '0.php'";
+				}
+				if($Type=="0"){
+					Leave_School("0K01001"); //test data
+					echo "window.location.href = '1.php'";
+				}
+					?>
+
 				// }
 			});
 		};

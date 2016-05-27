@@ -54,9 +54,9 @@ function Attendance_School($userId){
       array(PDO::ATTR_EMULATE_PREPARES=>false));
       if(!$pdo){$message="error";}
 //登校済みかcheak
-$sql="select * from SchoolAttendTable inner join UserTable on SchoolAttendTable.UserId=UserTable.UserId where SchoolAttendTable.UserId=? order by Time desc limit 1";
+// $sql="select * from SchoolAttendTable inner join UserTable on SchoolAttendTable.UserId=UserTable.UserId where SchoolAttendTable.UserId=? order by Time desc limit 1";
 
-      // $sql="select * from SchoolAttendTable where UserId=? order by Time desc limit 1;";
+      $sql="select * from SchoolAttendTable where UserId=? order by Time desc limit 1;";
       $stmt=$pdo->prepare($sql);
       $stmt->execute(array($userId));
       foreach($stmt as $data){
@@ -104,8 +104,8 @@ function Leave_School($userId){
       array(PDO::ATTR_EMULATE_PREPARES=>false));
       if(!$pdo){$message="error";}
 //下校済みかcheak
-      // $sql="select * from SchoolAttendTable where UserId=? order by Time desc limit 1;";
-      $sql="select * from SchoolAttendTable inner join UserTable on SchoolAttendTable.UserId=UserTable.UserId where SchoolAttendTable.UserId=? order by Time desc limit 1";
+      $sql="select * from SchoolAttendTable where UserId=? order by Time desc limit 1;";
+      // $sql="select * from SchoolAttendTable inner join UserTable on SchoolAttendTable.UserId=UserTable.UserId where SchoolAttendTable.UserId=? order by Time desc limit 1";
       $stmt=$pdo->prepare($sql);
       $stmt->execute(array($userId));
       foreach($stmt as $data){
