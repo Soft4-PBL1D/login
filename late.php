@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<img id="liliq" src="img/logo.png" alt="LILIQ">
+<a href="wait.php"><img id="liliq" src="img/logo.png" alt="LILIQ"></a>
 
   <div id="screen_yellow">
     <div id="screen_box">
@@ -21,32 +21,21 @@
         <div id="text_box">
           <div id="ck">　</div>
           <h1 id="status">遅刻</h1>
-          <script>
-          var ccnt = 5;
-          function countdown(){
-            ccnt = ccnt - 1;
-            if(ccnt < 0){
-              document.getElementById("closeup").innerHTML = "0";
-            }else{
-            document.getElementById("closeup").innerHTML = ccnt;
-          }
-          }
 
-          </script>
-          <span id="closeup" class="closer">
-            5
-          </span>
-          <span class="closer">
-            秒後にクローズ
-          </span>
         </div>
           <br clear="all">
 
           <p id="name"  class="marginner">0K00018 土肥　裕平</p>
           <a id="select_box" href="###############やり直しの際の処理.php################">
-            <div id="choice_btn">
-              <p>　これは私の名前ではありません(Enterでやり直し)</p>
-            </div>
+            <a href="#######" id="choice_btn3"><div class="tabler">
+              <p>自己都合</p>
+            </div></a>
+            <a href="#######" id="choice_btn3"><div class="tabler">
+              <p>遅延</p>
+            </div></a>
+            <a href="#######" id="choice_btn3" style="  margin-right:0px;"><div class="tabler">
+              <p>就活</p>
+            </div></a>
           </a>
 
       </div>
@@ -74,9 +63,9 @@
       // --></SCRIPT>
       <DIV id="myIDdate" class="clock_txt">00月00日(　)00時00分00秒</DIV>
       <SCRIPT type="text/javascript"><!--
-      setInterval( "myFunc()", 1000 );
-      setInterval( "countdown()", 1000 );
-      // --></SCRIPT>
+        setInterval( "myFunc()", 1000 );
+        setInterval( "countdown()", 1000 );
+        // --></SCRIPT>
     </p>
   </div>
 
