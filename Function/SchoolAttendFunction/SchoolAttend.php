@@ -61,8 +61,8 @@ function Attendance_School($userId){
       $stmt->execute(array($userId));
       foreach($stmt as $data){
       $Type=$data["Type"];
-      $name=$data["Name"];
-      $time=date("Y-m-d H:i",$data["Time"]);
+      $Name=$data["Name"];
+      $Time=date("Y-m-d H:i",$data["Time"]);
     }
 //DBに投稿時間を書き込む
     if($Type=="1"||$Type=null){
@@ -71,7 +71,18 @@ function Attendance_School($userId){
         $stmt=$pdo->prepare($sql);
         // $stmt->execute(array("0K01001",time(),"0","0"));
         $stmt->execute(array($userId,time(),"0","0"));
-        $message=$Time."に<br>".$name."さん登校しました<br>";
+        // $message=$Time."に<br>".$Name."さん登校しました<br>";
+        //出席画面パス
+        require("/var/www/html/Dfun/Function/ClassAttendFunction/ClassAttendDB.php");
+        $ClassAttendDB=new ClassAttendDB();
+        if(date("09:20:59") > date("H:i:s")){
+        //１地時間目出席
+        $ClassAttendDB->Being_late($userId,0);
+        header("Location:/Dfun/desgin/0.php");}
+        // 遅刻理由画面パス
+        if(date("09:20:59") < date("H:i:s")){
+        header("Location:/Dfun/desgin/12.php");
+        }
 //DBに投稿時間を書きこまれいていたら投稿時間を出力
       }
       //else if($Type==0){
