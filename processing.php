@@ -10,6 +10,7 @@
 </head>
 
 <body>
+	<img id="liliq" src="img/logo.png" alt="LILIQ">
 	<video id="camera" width="400" height="300" autoplay style='visible:false;position:absolute; top:-1000px; left:-1000px'></video>
 	<canvas id="image" width="400" height="300" style='visible:false;position:absolute; top:-1000px; left:-1000px'></canvas>
 	<canvas id="overlay" width="400" height="300" style='visible:false;position:absolute; top:-1000px; left:-1000px'></canvas>
@@ -50,7 +51,7 @@
 
 </body>
 	<script src="clmtrackr-dev/clmtrackr.js"></script>
-	<script src="clmtrackr-dev/models/model_pca_20_svm.js"></script>	
+	<script src="clmtrackr-dev/models/model_pca_20_svm.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script>
 
@@ -61,11 +62,11 @@
 				return (navigator.getUserMedia || navigator.webkitGetUserMedia ||
 					navigator.mozGetUserMedia || navigator.msGetUserMedia);
 			};
-		
+
 			var onFailSoHard = function(e) {
 				console.log('エラー!', e);
 			};
-		
+
 			if(!hasGetUserMedia()) {
 				alert("未対応ブラウザです。");
 			} else {
@@ -109,7 +110,7 @@
 				}
 			});
 		};
-		
+
 		var getbase64 = function(base64){
 			var base64Data = base64.split(',')[1];
 			return base64Data;
@@ -133,7 +134,7 @@
 			//	canvas.setAttribute("height", h);
 
 				ctx.drawImage(video, 0, 0, 400, 300);
-				
+
 				var videoInput = document.getElementById('camera');
 				var tracker = new clm.tracker();
 				tracker.init(pModel);
@@ -145,17 +146,17 @@
 				var cf = canvasInput2.getContext('2d');
 
 				function drawLoop() {
-					requestAnimationFrame(drawLoop); 	
-					cc.clearRect(0, 0, canvasInput.width, canvasInput.height); 
+					requestAnimationFrame(drawLoop);
+					cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
 					cc.drawImage(video, 0, 0, 400, 300);
 					cc.strokeStyle = 'rgb(0, 255, 0)';
-					//tracker.draw(canvasInput);		
+					//tracker.draw(canvasInput);
 					var positions = tracker.getCurrentPosition();
 					var xMin = 9999;
 					var xMax = 0;
 					var yMin = 9999;
 					var yMax = 0;
-					if (positions != false) { 
+					if (positions != false) {
 						for (i = 0; i < 71; i++) {
 							if (positions[i][0] < xMin) {
 								xMin = positions[i][0];
@@ -172,11 +173,11 @@
 						}
 					}
 					cc.strokeRect(xMin, yMin, xMax - xMin, yMax - yMin);
-					cf.clearRect(0, 0, canvasInput.width, canvasInput.height); 
+					cf.clearRect(0, 0, canvasInput.width, canvasInput.height);
 					cf.drawImage(canvasInput, xMin, yMin, xMax - xMin, yMax - yMin, 0, 0, xMax - xMin, yMax - yMin);
 				}
 				drawLoop();
-			}			
+			}
 		});
 </script>
 </html>
