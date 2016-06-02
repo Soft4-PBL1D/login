@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>LILIQ Develop - Waiting..</title>
+<title>LILIQ Develop - エラー</title>
 <link rel="stylesheet" type="text/css" href="screen.css">
 </head>
 
