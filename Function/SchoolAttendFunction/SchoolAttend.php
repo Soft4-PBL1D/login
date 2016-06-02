@@ -73,21 +73,9 @@ function Attendance_School($userId){
         $stmt->execute(array($userId,time(),"0","0"));
         // $message=$Time."に<br>".$Name."さん登校しました<br>";
         //出席画面パス
-        require("/var/www/html/Dfun/Function/ClassAttendFunction/ClassAttendDB.php");
-        $ClassAttendDB=new ClassAttendDB();
-        if(date("09:20:59") > date("H:i:s")){
-        //１地時間目出席
-        $ClassAttendDB->Being_late($userId,0);
-        header("Location:/Dfun/desgin/0.php");}
-        // 遅刻理由画面パス
-        if(date("09:20:59") < date("H:i:s")){
-        header("Location:/Dfun/desgin/12.php");
-        }
+      
 //DBに投稿時間を書きこまれいていたら投稿時間を出力
       }
-      //else if($Type==0){
-        //$message=$time."に\n".$userId."さん登校済み<br>";
-    //}
 //DB Error
       }catch (PDOException $e) {
         exit('database session error。'.$e->getMessage());
@@ -102,12 +90,6 @@ function Attendance_School($userId){
 function Leave_School($userId){
   error_reporting(E_ALL ^ E_NOTICE);
   session_start();
-  // $name=$_SESSION["NAME"];
-  // $userId=$_SESSION["USERID"];
-  // if(!$_SESSION["USERID"]){
-    // $ip=$_SERVER["REMOTE_ADDR"];
-  //return header("location: http://{$ip}/login/login.php");
-  // }
   $Type="0"; //attend flag 1 or 0
   $message=""; //message
     try{
@@ -130,7 +112,6 @@ function Leave_School($userId){
         $sql="insert into SchoolAttendTable(UserId,Time,Type,Checking)values(?,?,?,?)";
         $stmt=$pdo->prepare($sql);
         $stmt->execute(array($userId,time(),"1","1"));
-        $message=$Time."に<br>".$name."さん下校しました<br>";
 //DBに下校時間を書きこまれいていたら下校時間を出力
       }
       // else if($Type==1){
