@@ -104,7 +104,8 @@
 				contentType: false,
 				processData: false,
 			}).then(function(data) {
-				if (data < 0.3) {
+				if (data != 'continue') {
+					alert(data);
 					window.location.href = '0.php';
 				}
 			});
