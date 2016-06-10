@@ -1,9 +1,0 @@
-#登下校処理を死体場所で
-#処理関数読み込み
-require("/var/www/html/Dfun/Function/SchoolAttendFunction/SchoolAttend.php");
-#登下校どちらを実行するかの情報(Type=0は登校済みType=1は下校済み)
-list($Type)=Attendance_Cheack(ユーザーID);
-#登校処理をする
-if($Type==1 || $Type==null)Attendance_School(ユーザーID);
-#下校処理をする
-if($Type==0)Leave_School(ユーザーID);
