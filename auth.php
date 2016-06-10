@@ -13,6 +13,8 @@
 		}
 		$regSig = puzzle_fill_cvec_from_file("/opt/upload/reg/$file");
 		$num = puzzle_vector_normalized_distance($authSig, $regSig);
+		$num = shell_exec("puzzle-diff -c -t -p 10 /opt/upload/authimg /opt/upload/reg/$file");
+		file_put_contents('au', "$num\n", FILE_APPEND);
 		if ($num < 0.5) {
 			echo "You are $file";
 			break;

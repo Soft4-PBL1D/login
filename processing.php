@@ -14,7 +14,7 @@
 	<video id="camera" width="400" height="300" autoplay style='visible:false;position:absolute; top:-1000px; left:-1000px'></video>
 	<canvas id="image" width="400" height="300" style='visible:false;position:absolute; top:-1000px; left:-1000px'></canvas>
 	<canvas id="overlay" width="400" height="300" style='visible:false;position:absolute; top:-1000px; left:-1000px'></canvas>
-	<canvas id="face" width="400" height="300" style='visible:false;position:absolute; top:500px; left:500px'></canvas>
+<!--	<canvas id="face" width="400" height="300" style='visible:false;position:absolute; top:500px; left:500px'></canvas>-->
   <div id="screen_blue">
     <div id="screen_box">
 
@@ -98,13 +98,13 @@
 				contentType: false,
 				processData: false,
 			}).then(function(data) {
-			//	if (data != 'continue') {
-			//		alert(data);
-			//		window.location.href = '0.php';
-			//	}
+				if (data != 'continue') {
+					alert(data);
+					window.location.href = '0.php';
+				}
                       //if (data < 0.3) {
                       <?php
-                              require("/var/www/html/Dfun/Function/SchoolAttendFunction/SchoolAttend.php");
+                 /*             require("/var/www/html/Dfun/Function/SchoolAttendFunction/SchoolAttend.php");
                               list($Type)=Attendance_Cheack("0K01001"); //test data
                               if($Type=="1" || $Type==null){
                                     Attendance_School("0K01001"); //test data
@@ -113,7 +113,7 @@
                               if($Type=="0"){
                                       Leave_School("0K01001"); //test data
                                       echo "window.location.href = '0.php'";
-                              }
+			      }*/
                                       ?>
 			//
       //		window.location.href = '0.php';  //遷移
