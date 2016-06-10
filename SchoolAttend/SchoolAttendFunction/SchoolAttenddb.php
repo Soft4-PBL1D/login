@@ -18,13 +18,10 @@ error_reporting(E_ALL ^ E_NOTICE);
         array(PDO::ATTR_EMULATE_PREPARES=>false));
         $sql="select * from UserTable where UserId=? and Password=?";
         $stmt=$pdo->prepare($sql);
-        $stmt->execute(array($_POST['userid'],SHA1($_POST['password'])));
+        $stmt->execute(array($_POST['userid'],$_POST['password']));
         while($kari=$stmt->fetch(PDO::FETCH_ASSOC)){
           $user[0]=$kari[UserId];
           $user[1]=$kari[Password];
-          $user[2]=$kari[Type];
-          $user[3]=$kari[Name];
-
         }
       } catch (PDOException $e) {
           exit('database session error。'.$e->getMessage());
@@ -32,16 +29,10 @@ error_reporting(E_ALL ^ E_NOTICE);
           // $login="login.php";
         }
     // loginOK
-    if ($_POST["userid"] == $user[0] && SHA1($_POST["password"]) == $user[1]) {
+    if ($_POST["userid"] == $user[0] && $_POST["password"] == $user[1]) {
       // sessionID_create
-      // session_regenerate_id(TRUE);
-      if(strstr(SHA1($_POST["userid"]),SHA1($_POST["password"]))):
-        $_SESSION["JAMP"]="1";
-        header("Location:../Log/password.php");
-        exit;
-      endif;
+      session_regenerate_id(TRUE);
       $_SESSION["USERID"] = $_POST["userid"];
-      $_SESSION["NAME"]=$user[3];
       if($_SESSION["USERID"]!="teacher"){
           header("Location:Attend.php");
       }
@@ -79,11 +70,7 @@ function Logout(){
   }
   // sessionclear
   session_destroy();
-<<<<<<< HEAD
-  // return header("Refresh:5;URL=index.php");
-=======
   return header("Refresh:5;URL=index.php");
->>>>>>> a6df07e9a511764ca2d4c2b357cde93e1b05fb25
 
 }
 ?>

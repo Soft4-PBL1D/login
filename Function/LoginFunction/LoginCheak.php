@@ -14,10 +14,17 @@ function teacherCheak(){
 function studentsCheak(){
   session_start();
   // login_cheack
+<<<<<<< HEAD
     if (!isset($_SESSION["USERID"])&&($_SESSION["USERID"]!=$_SESSION["PASSWORD"])){
       header("Location:login.php");
       exit;
     }else if($_SESSION["TYPE"]=="1"&&$_SESSION["USERID"]!=$_SESSION["PASSWORD"]){
+=======
+    if (!isset($_SESSION["USERID"])){
+      header("Location:login.php");
+      exit;
+    }else if($_SESSION["TYPE"]=="1"){
+>>>>>>> a6df07e9a511764ca2d4c2b357cde93e1b05fb25
       header("Location:teacher.php");
       exit;
     }

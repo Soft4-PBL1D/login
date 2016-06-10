@@ -176,11 +176,19 @@ function Login(){
         // echo SHA1($_SESSION["USERID"])."<br>";
         // echo $_SESSION["PASSWORD"];
       }
+<<<<<<< HEAD
         if($_SESSION["TYPE"]=="1"&&(!strstr(SHA1($_SESSION["USERID"]),$_SESSION["PASSWORD"]))){
           header("Location:teacher.php");
           exit;
         }
           if($_SESSION["TYPE"]=="0"&&(!strstr(SHA1($_SESSION["USERID"]),$_SESSION["PASSWORD"]))){
+=======
+        if($_SESSION["TYPE"]=="1"){
+          header("Location:teacher.php");
+          exit;
+        }
+          if($_SESSION["TYPE"]=="0"){
+>>>>>>> a6df07e9a511764ca2d4c2b357cde93e1b05fb25
             // echo $user[1];
             header("Location:students.php");
             exit;
