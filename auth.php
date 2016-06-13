@@ -17,6 +17,8 @@
 		file_put_contents('au', "$num\n", FILE_APPEND);
 		if ($num < 0.5) {
 			echo "You are $file";
+			session_start();
+			$_SESSION['userid'] = $file;
 			break;
 		} else {
 			echo "continue";
