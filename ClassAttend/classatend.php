@@ -14,7 +14,7 @@
       $ClassAttendDB->Attendance_School($_SESSION["USERID"]);
       $ClassAttendDB->AttendUpdate($_GET["id"],$_SESSION["USERID"],1);
       session_destroy();
-      header("Location:/liliq/design/wait.php");
+      header("Location:/liliq/faceLogin/wait.php");
         ?>
 </body>
 </html>
