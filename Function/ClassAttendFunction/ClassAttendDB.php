@@ -21,11 +21,13 @@ class ClassAttendDB {
           $pdo = new PDO ($this->dsn, $this->user, $this->pass, array(
           PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET 'utf8'"));
           // 登校ならtype=1　初回登録ならnull 下校ならType=0をかえす
-          $sql="select Name from UserTable where UserId=?;";
+          $sql="select * from UserTable where UserId=?;";
           $stmt=$pdo->prepare($sql);
-          $stmt->execute(array($userId));
-          foreach($stmt as $data){
+          $stmt->execute(array($UserId));
+          while($data=$stmt->fetch(PDO::FETCH_ASSOC)){
+            // echo "boke";
                 $this->Name=$data[Name];//1 or 0
+
               }
             }
 
