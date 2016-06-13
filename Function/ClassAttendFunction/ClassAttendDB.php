@@ -14,6 +14,21 @@ class ClassAttendDB {
         // 出席：0遅刻：1欠席：2就活：3病欠：4公欠：5
 
         }
+        function NameSelect($UserId){
+          error_reporting(E_ALL ^ E_NOTICE);
+          // DBの選択
+          $this->construct("localhost","root","root","Users");
+          $pdo = new PDO ($this->dsn, $this->user, $this->pass, array(
+          PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET 'utf8'"));
+          // 登校ならtype=1　初回登録ならnull 下校ならType=0をかえす
+          $sql="select Name from UserTable where UserId=?;";
+          $stmt=$pdo->prepare($sql);
+          $stmt->execute(array($userId));
+          foreach($stmt as $data){
+                $this->Name=$data[Name];//1 or 0
+              }
+            }
+
       //登校処理をするか下校処理をするかの判別
         function Attendance_Check($userId){
           error_reporting(E_ALL ^ E_NOTICE);
@@ -285,48 +300,24 @@ class ClassAttendDB {
         $this->construct("localhost","root","root","Users");
         $pdo = new PDO ($this->dsn, $this->user, $this->pass, array(
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET 'utf8'"));
-        $sql="select * from SchoolDayTable where Date like ?";
+        $sql="select DATE_FORMAT(Date,'%e') from SchoolDayTable where Date like ? and SchoolDay=1";
         $stmt=$pdo->prepare($sql);
         switch ($Month) {
-          case 1:$Month="January";break;case 2:$Month="February";break;
-          case 3:$Month="March";break;case 4:$Month="April";break;
-          case 5:$Month="May";break;case 6:$Month="June";break;
-          case 7:$Month="July";break;case 8:$Month="August";break;
-          case 9:$Month="September";break;case 10:$Month="October";break;
-          case 11:$Month="November";break;case 12:$Month="December";break;
-        }
-        $stmt->execute(array(date("Y-m",strtotime($Month))."%"));
+          case 1:$Month="01";break;case 2:$Month="02";break;
+          case 3:$Month="03";break;case 4:$Month="04";break;
+          case 5:$Month="05";break;case 6:$Month="06";break;
+          case 7:$Month="07";break;case 8:$Month="08";break;
+          case 9:$Month="09";break;}
+        $stmt->execute(array(date("Y-$Month")."%"));
         $i=0;
       while($cal=$stmt->fetch(PDO::FETCH_ASSOC)){
-                  $this->calendar[$i][0]=$cal[Date];
-                  $this->calendar[$i][1]=$cal[Week];
-                  $this->calendar[$i][2]=$cal[SchoolDay];
-                  $this->calendar[$i][3]=$cal[SchoolStartTime];
-                  $this->calendar[$i][4]=$cal[SchoolEndTime];
-                  $i=$i+1;
+                  $this->calendar[$cal["DATE_FORMAT(Date,'%e')"]]=$cal["DATE_FORMAT(Date,'%e')"];
+                  // $i++;
+
       }
-      $k=0;
-      $day=1;
-      //その月のさいしょの日にちの曜日
-      $cnt=$this->calendar[0][1];
-      //月はじめの曜日まで０うめ
-      for($i=0;$i<count($this->calendar)+$cnt;$i++){
-        for($j=0;$j<7;$j++){
-          if($k<=$cnt){
-          $this->calendars[$i][$j]=0;
-          $k++;
-          }
-          else{
-          $this->calendars[$i][$j]=$day;
-          $day=$day+1;
-        }
-        }
-}
-
-
-
       }
     }
+
 
 
 
