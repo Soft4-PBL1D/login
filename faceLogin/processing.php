@@ -85,7 +85,9 @@
 		function auth() {
 			var canvas = document.getElementById('face');
 			var blob = getbase64(canvas.toDataURL());
-			sendImage64(blob, 'auth.php');
+			if (faceHeight > 100) {
+				sendImage64(blob, 'auth.php');
+			}
 		}
 
 		var sendImage64 = function(base64, php) {
@@ -147,6 +149,7 @@
 
 
 		//$('#bt').click(function() {
+		var faceHeight = 0;
 		$(document).ready(function () {
 			if (true || localMediaStream) {
 				console.log('start');
@@ -201,6 +204,7 @@
 							}
 						}
 					}
+					faceHeight = yMax - yMin;
 					cc.strokeRect(xMin, yMin, xMax - xMin, yMax - yMin);
 					cf.clearRect(0, 0, canvasInput.width, canvasInput.height);
 					cf.drawImage(canvasInput, xMin, yMin, xMax - xMin, yMax - yMin, 0, 0, xMax - xMin, yMax - yMin);
