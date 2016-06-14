@@ -15,7 +15,7 @@
 		$num = puzzle_vector_normalized_distance($authSig, $regSig);
 		$num = shell_exec("puzzle-diff -c -t -p 10 /opt/upload/authimg /opt/upload/reg/$file");
 		file_put_contents('au', "$num\n", FILE_APPEND);
-		if ($num < 0.5) {
+		if ($num < 0.74 && $num > 0.7) {
 			echo "You are $file";
 			session_start();
 			$_SESSION['userid'] = $file;
